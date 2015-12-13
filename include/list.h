@@ -76,18 +76,34 @@ public:
 		}
 		length++;
 	}
-	/*Node<Type>* Search(int pos)
+
+	Node<Type>* At(int pos)
 	{
 		if (pos<0 || pos>length)
 		{
-			trow("Выход за границы списка");
+			throw("Выход за границы списка");
 		}
-		
-	}*/
+		Node<Type>* current = head;
+		for (int i = 0; i < pos; i++)
+		{
+			current = current->GetNext();
+		}
+		return current;
+	}
+
 	void AddElement(Type x, int pos) // pos-1 search
 	{
-		
+		if (pos == 0)
+		{
+			AddToHead(x);
+			return;
+		}
+		Node<Type>* current = At(pos-1);
+		Node<Type>* temp = new Node<Type>(x,current->GetNext());
+		current->SetNext(temp);
+		length++;
 	}
+
 	void DeleteFirst() {
 		if (length == 0) return;
 

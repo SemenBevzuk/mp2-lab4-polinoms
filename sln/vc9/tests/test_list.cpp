@@ -36,3 +36,41 @@ TEST(List, can_delete_first_element) {
 	EXPECT_EQ(4, list.GetHead()->GetVar());
 
 }
+TEST(List, can_find_element_by_index) {
+	List<int> list;
+	list.AddToHead(1);
+	list.AddToTail(4);//1
+
+	EXPECT_EQ(4, list.At(1)->GetVar());
+
+}
+TEST(List, can_not_find_element_by_negative_index) {
+	List<int> list;
+
+	EXPECT_ANY_THROW(list.At(-1));
+}
+TEST(List, can_not_find_element_by_index_more_then_length) {
+	List<int> list;
+
+	EXPECT_ANY_THROW(list.At(1));
+}
+
+TEST(List, can_add_element_by_index) {
+	List<int> list;
+	list.AddToHead(1);
+	list.AddToTail(4);
+	list.AddElement(2,1);//1,2,4
+
+	EXPECT_EQ(3, list.GetLength());
+	EXPECT_EQ(2, list.At(1)->GetVar());
+}
+
+TEST(List, can_add_element_at_head) {
+	List<int> list;
+	list.AddToHead(1);
+	list.AddToTail(4);
+	list.AddElement(2, 0);//2,1,4
+
+	EXPECT_EQ(3, list.GetLength());
+	EXPECT_EQ(2, list.At(0)->GetVar());
+}
