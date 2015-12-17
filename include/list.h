@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 
 template <class Type>
@@ -101,6 +102,30 @@ public:
 		Node<Type>* current = At(pos-1);
 		Node<Type>* temp = new Node<Type>(x,current->GetNext());
 		current->SetNext(temp);
+		length++;
+	}
+
+	void AddElementOrdeled(Type x)
+	{
+		Node<Type>* current = head;
+		Node<Type>* previous = head;
+		Node<Type>* temp = new Node<Type>(x);
+		
+		if ( x>current->GetVar() )
+		{
+			AddToHead(x);
+			return;
+		}
+
+		while (x < current->GetVar())
+		{
+			previous = current;
+			current = current->GetNext();
+		}
+
+		previous->SetNext(temp);
+		temp->SetNext(current);
+
 		length++;
 	}
 
