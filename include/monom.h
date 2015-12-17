@@ -8,12 +8,19 @@ private:
 	short degree; // xyz, где x,y,z принадлежат [0..9], x - степень x
 public:
 	monom(double c=0, short d=0);
-	double GetCoefficient();
-	short GetDegree();
+	monom(const monom &x);
+	double GetCoefficient() const;
+	short GetDegree() const;
 	void SetCoefficient(double c = 0);
 	void SetDegree(short d = 0);
-	friend bool operator ==(monom& left, monom& right);
-	friend bool operator <(monom& left, monom& right);
-	friend bool operator >(monom& left, monom& right);
+
+	friend bool operator ==(const monom& left, const monom& right);
+	friend bool operator !=(const monom& left, const monom& right);
+	friend bool operator <(const monom& left, const monom& right);
+	friend bool operator >(const monom& left, const monom& right);
+	monom& operator = (const monom& right);
+
+	friend monom operator + (const monom& left,const monom& right);
+	friend monom operator - (const monom& left,const monom& right);
 
 };

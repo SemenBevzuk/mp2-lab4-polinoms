@@ -55,6 +55,10 @@ public:
 	{
 		return length;
 	}
+	void SetLength(int i)
+	{
+		if (i>0) length = i;
+	}
 	void AddToHead(Type x) {
 		Node<Type>* temp = new Node<Type>(x, head);
 		head = temp;
@@ -105,24 +109,30 @@ public:
 		length++;
 	}
 
-	void AddElementOrdeled(Type x)
-	{
+	void AddElementOrdered(Type x) {
 		Node<Type>* current = head;
 		Node<Type>* previous = head;
 		Node<Type>* temp = new Node<Type>(x);
-		
-		if ( x>current->GetVar() )
+
+		if (current == NULL) {
+			AddToHead(x);
+			return;
+		}
+		if (x > current->GetVar())//|| x==current->GetVar())
 		{
 			AddToHead(x);
 			return;
 		}
-
+		if (x< tail->GetVar()) {
+			AddToTail(x);
+			return;
+		}
 		while (x < current->GetVar())
 		{
 			previous = current;
 			current = current->GetNext();
 		}
-
+		
 		previous->SetNext(temp);
 		temp->SetNext(current);
 
@@ -140,11 +150,13 @@ public:
 		}
 		length--;
 	}
+
 	void Delete() {
 		while (length != 0) {
 			DeleteFirst();
 		}
 	}
+
 	~List()
 	{
 		Delete();

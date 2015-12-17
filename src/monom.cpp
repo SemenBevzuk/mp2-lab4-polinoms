@@ -6,12 +6,18 @@ monom::monom(double c, short d)
 	degree = d;
 }
 
-double monom::GetCoefficient()
+monom::monom(const monom& x)
+{
+	coefficient = x.GetCoefficient();
+	degree = x.GetDegree();
+}
+
+double monom::GetCoefficient() const
 {
 	return coefficient;
 }
 
-short monom::GetDegree()
+short monom::GetDegree() const
 {
 	return degree;
 }
@@ -26,35 +32,67 @@ void monom::SetDegree(short d)
 	degree = d;
 }
 
-bool operator==(monom& left, monom& right)
+monom& monom::operator=(const monom& right)
+{
+	if (this == &right) {
+		return *this;
+	}
+	coefficient = right.GetCoefficient();
+	degree = right.GetDegree();
+	return *this;
+}
+
+bool operator==(const monom& left,const monom& right)
 {
 	if (left.GetDegree() != right.GetDegree())
 	{
 		return false;
 	}
-	else 
+	if (left.GetCoefficient() != right.GetCoefficient())
 	{
-		if (left.GetCoefficient() != right.GetCoefficient())
-		{
-			return false;
-		}
+		
 	}
 	return true;
 }
 
-bool operator < (monom& left, monom& right)
+bool operator!=(const monom& left, const monom& right)
 {
-	if (left.GetDegree() < right.GetDegree())
+	return !(left == right);
+}
+
+bool operator < (const monom& left, const monom& right)
+{
+	if (left.GetDegree() <= right.GetDegree())
 	{
 		return  true;
 	}
 	return false;
 }
 
-bool operator > (monom& left, monom& right)
+bool operator > (const monom& left,const monom& right)
 {
-	if (left.GetDegree() > right.GetDegree()) {
+	if (left.GetDegree() >= right.GetDegree()) {
 		return  true;
 	}
 	return false;
+}
+
+monom operator + (const monom& left, const monom& right)
+{
+	if (!(left == right))
+	{
+		//return 0;
+		throw("Different degrees.");
+	}
+	monom res(left.GetCoefficient() + right.GetCoefficient(),left.GetDegree());
+	return res;
+}
+
+monom operator - (const monom& left, const monom& right) {
+	if (!(left == right)) {
+		//return 0;
+		throw("Different degrees.");
+	}
+	monom res(left.GetCoefficient() - right.GetCoefficient(), left.GetDegree());
+	return res;
 }

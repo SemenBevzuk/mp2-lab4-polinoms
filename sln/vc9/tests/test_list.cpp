@@ -80,7 +80,7 @@ TEST(List, can_add_element_orderly) { //
 	list.AddToHead(1);
 	list.AddToHead(3);//3,1
 
-	list.AddElementOrdeled(2);
+	list.AddElementOrdered(2);
 	
 	EXPECT_EQ(3, list.GetHead()->GetVar());
 	EXPECT_EQ(2, list.GetHead()->GetNext()->GetVar());
@@ -92,7 +92,7 @@ TEST(List, can_add_element_orderly_first) { //
 	list.AddToHead(1);
 	list.AddToHead(2);//2,1
 
-	list.AddElementOrdeled(3);
+	list.AddElementOrdered(3);
 
 	EXPECT_EQ(3, list.GetHead()->GetVar());
 	EXPECT_EQ(2, list.GetHead()->GetNext()->GetVar());
