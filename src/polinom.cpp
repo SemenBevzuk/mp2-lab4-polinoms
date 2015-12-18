@@ -30,11 +30,6 @@ Polinom::Polinom(const Polinom& x)
 	polinom->AddElementOrdered(current->GetVar());
 }
 
-Polinom::~Polinom()
-{
-	//polinom->Delete();
-}
-
 void Polinom::AddElement(monom x)
 {
 	polinom->AddElementOrdered(x);
@@ -110,6 +105,27 @@ Polinom operator + (const Polinom& left, const Polinom& right)
 	current = right.polinom->GetHead();
 	while (current != NULL) {
 		res.AddElement(current->GetVar());
+		current = current->GetNext();
+	}
+	res.Simplify();
+
+	return res;
+}
+
+Polinom operator-(const Polinom& left, const Polinom& right)
+{
+	Polinom res;
+	Node<monom>* current = left.polinom->GetHead();
+	while (current != NULL) {
+		
+		res.AddElement(current->GetVar());
+		current = current->GetNext();
+	}
+
+	current = right.polinom->GetHead();
+	while (current != NULL) {
+		monom temp(-current->GetVar().GetCoefficient(), current->GetVar().GetDegree());
+		res.AddElement(temp);
 		current = current->GetNext();
 	}
 	res.Simplify();

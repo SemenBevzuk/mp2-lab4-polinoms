@@ -95,13 +95,13 @@ TEST(Polinom, can_add) {
 	Polinom c;
 	c = a + b;
 
-	std::cout << a[0].GetCoefficient() << " " << a[0].GetDegree() << std::endl;
+	/*std::cout << a[0].GetCoefficient() << " " << a[0].GetDegree() << std::endl;
 	std::cout << a[1].GetCoefficient() << std::endl;
 	std::cout << b[0].GetCoefficient() << std::endl;
 	std::cout << b[1].GetCoefficient() << std::endl;
 	std::cout << c[0].GetCoefficient() << std::endl;
 	std::cout << c[1].GetCoefficient() << std::endl;
-	std::cout << c[2].GetCoefficient() << std::endl;
+	std::cout << c[2].GetCoefficient() << std::endl;*/
 	//1|300,4|300,1|200,5|200,10|100
 
 	//a.Simplify();
@@ -109,4 +109,52 @@ TEST(Polinom, can_add) {
 	EXPECT_EQ(3, c[0].GetCoefficient());
 	EXPECT_EQ(2, c[1].GetCoefficient());
 	EXPECT_EQ(2, c[2].GetCoefficient());
+}
+TEST(Polinom, can_add_2) {
+	Polinom a;
+	a.AddElement(monom(1, 100));
+	a.AddElement(monom(1, 100));
+	Polinom b;
+	b.AddElement(monom(1, 100));
+	b.AddElement(monom(1, 100));
+	Polinom c;
+	c = a + b;
+
+	/*std::cout << a[0].GetCoefficient() << " " << a[0].GetDegree() << std::endl;
+	std::cout << a[1].GetCoefficient() << std::endl;
+	std::cout << b[0].GetCoefficient() << std::endl;
+	std::cout << b[1].GetCoefficient() << std::endl;
+	std::cout << c[0].GetCoefficient() << std::endl;
+	std::cout << c[1].GetCoefficient() << std::endl;
+	std::cout << c[2].GetCoefficient() << std::endl;*/
+	//1|300,4|300,1|200,5|200,10|100
+
+	//a.Simplify();
+	EXPECT_EQ(1, c.GetLength());
+	EXPECT_EQ(4, c[0].GetCoefficient());
+}
+
+TEST(Polinom, can_minus) {
+	Polinom a;
+	a.AddElement(monom(2, 100));
+	a.AddElement(monom(2, 200));
+	Polinom b;
+	b.AddElement(monom(1, 100));
+	b.AddElement(monom(4, 200));
+	Polinom c;
+	c = a - b;
+
+	/*std::cout << a[0].GetCoefficient() << " " << a[0].GetDegree() << std::endl;
+	std::cout << a[1].GetCoefficient() << std::endl;
+	std::cout << b[0].GetCoefficient() << std::endl;
+	std::cout << b[1].GetCoefficient() << std::endl;
+	std::cout << c[0].GetCoefficient() << std::endl;
+	std::cout << c[1].GetCoefficient() << std::endl;
+	std::cout << c[2].GetCoefficient() << std::endl;*/
+	//1|300,4|300,1|200,5|200,10|100
+
+	//a.Simplify();
+	EXPECT_EQ(2, c.GetLength());
+	EXPECT_EQ(-2, c[0].GetCoefficient());
+	EXPECT_EQ(1, c[1].GetCoefficient());
 }

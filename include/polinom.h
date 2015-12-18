@@ -14,7 +14,7 @@ private:
 public:
 	Polinom();
 	Polinom(const Polinom &x);
-	~Polinom();
+
 	void AddElement(monom x);
 	int GetLength();
 	
