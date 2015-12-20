@@ -7,7 +7,7 @@ private:
 	double coefficient;
 	short degree; // xyz, где x,y,z принадлежат [0..9], x - степень x
 public:
-	monom(double c=0, short d=0);
+	monom(double coefficient = 0, short degree = -1);
 	monom(const monom &x);
 	double GetCoefficient() const;
 	short GetDegree() const;
@@ -22,5 +22,6 @@ public:
 
 	friend monom operator + (const monom& left,const monom& right);
 	friend monom operator - (const monom& left,const monom& right);
+	friend monom operator * (const monom& left, const monom& right);
 
 };

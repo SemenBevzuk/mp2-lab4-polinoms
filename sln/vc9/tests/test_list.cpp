@@ -6,7 +6,9 @@ TEST(List, can_add_to_head) {
 	list.AddToHead(2);
 	EXPECT_EQ(1, list.GetLength());
 	EXPECT_EQ(2,list.GetHead()->GetVar());
+	EXPECT_EQ(NULL, list.GetHead()->GetNext());
 }
+
 TEST(List, can_add_to_tail) {
 	List<int> list;
 	list.AddToHead(1);
@@ -97,4 +99,12 @@ TEST(List, can_add_element_orderly_first) { //
 	EXPECT_EQ(3, list.GetHead()->GetVar());
 	EXPECT_EQ(2, list.GetHead()->GetNext()->GetVar());
 	EXPECT_EQ(1, list.GetHead()->GetNext()->GetNext()->GetVar());
+}
+
+TEST(List, can_delete) { //
+	List<int> list;
+	list.AddToHead(1);
+	list.AddToHead(2);//2,1
+	list.AddElementOrdered(3);
+	ASSERT_NO_THROW(list.Delete());
 }

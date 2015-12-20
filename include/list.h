@@ -1,5 +1,7 @@
 #pragma once
 #include <stdlib.h>
+#include "list.h"
+#include <monom.h>
 
 template <class Type>
 class Node {
@@ -21,6 +23,11 @@ public:
 		return var;
 	}
 
+	Node() {
+		SetVar(Type());  //как задать нулевой полином? 
+		SetNext(NULL);
+	}
+
 	Node(Type x) {
 		SetVar(x);
 		SetNext(NULL);
@@ -31,10 +38,11 @@ public:
 	}
 };
 
-template <class Type>
+template <class Type>  //с фиктивно головой
 class List
 {
 private:
+	Node<Type>* fhead; //фиктивная
 	Node<Type>* head;
 	Node<Type>* tail;
 
@@ -43,8 +51,9 @@ private:
 public:
 	List()
 	{
-		head = NULL;
-		tail = NULL;
+		fhead = new Node<Type>(); //var = momom(0,-1), NEXT = NULL
+		head = fhead;
+		tail = fhead;
 		length = 0;
 	}
 	Node<Type>* GetHead()
@@ -60,12 +69,19 @@ public:
 		if (i>0) length = i;
 	}
 	void AddToHead(Type x) {
-		Node<Type>* temp = new Node<Type>(x, head);
-		head = temp;
-		if (tail == NULL)
+		Node<Type>* temp;
+		if (length == 0)
 		{
+			temp = new Node<Type>(x, NULL);
 			tail = temp;
 		}
+		else
+		{
+			temp = new Node<Type>(x, head);
+		}
+		
+		fhead->SetNext(temp);
+		head = temp;
 		length++;
 	}
 	
@@ -161,5 +177,24 @@ public:
 	{
 		Delete();
 	}
+
+	void DeleteElement(Node<monom>* node)
+	{
+		Node<Type> *previous = fhead;
+		Node<Type> *current = head;
+		while (current != NULL)
+		{
+			if (current == node)
+			{
+				previous->SetNext(current->GetNext());
+				delete(current);
+				length--;
+				return;
+			}
+			previous = current;
+			current = current->GetNext();
+		}
+		//нет элемента
+	};
 };
 

@@ -79,7 +79,7 @@ bool operator > (const monom& left,const monom& right)
 
 monom operator + (const monom& left, const monom& right)
 {
-	if (!(left == right))
+	if (left != right)
 	{
 		//return 0;
 		throw("Different degrees.");
@@ -89,10 +89,19 @@ monom operator + (const monom& left, const monom& right)
 }
 
 monom operator - (const monom& left, const monom& right) {
-	if (!(left == right)) {
+	if (left != right) {
 		//return 0;
 		throw("Different degrees.");
 	}
 	monom res(left.GetCoefficient() - right.GetCoefficient(), left.GetDegree());
+	return res;
+}
+
+monom operator*(const monom& left, const monom& right)
+{
+	if (left.GetDegree()+right.GetDegree()<0 || left.GetDegree()+right.GetDegree()>999) {
+		throw("Different degrees.");
+	}
+	monom res(left.GetCoefficient() * right.GetCoefficient(), left.GetDegree()+right.GetDegree());
 	return res;
 }

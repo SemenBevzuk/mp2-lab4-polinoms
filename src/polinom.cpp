@@ -5,45 +5,34 @@
 Polinom::Polinom()
 {
 	polinom = new List<monom>;
-	length = 0;
 }
 
 Polinom::Polinom(const Polinom& x)
 {
-	length = x.length;
-	
 	polinom = new List < monom > ;
 
-	if (polinom->GetHead() != NULL)
-	{
-		polinom->Delete();
-	}
-
 	Node<monom> *current = x.polinom->GetHead();
-	Node<monom> *previous = x.polinom->GetHead();
 
-	while (current->GetNext() != NULL)
+	while (current != NULL)
 	{
 		polinom->AddElementOrdered(current->GetVar());
 		current = current->GetNext();
 	}
-	polinom->AddElementOrdered(current->GetVar());
 }
 
 void Polinom::AddElement(monom x)
 {
 	polinom->AddElementOrdered(x);
-	length = polinom->GetLength();
 }
 
-int Polinom::GetLength()
+int Polinom::GetLength() const
 {
-	return length;
+	return polinom->GetLength();
 }
 
 monom& Polinom::operator[](int pos)
 {
-	if (pos<0 || pos> length)
+	if (pos<0 || pos> GetLength())
 	{
 		throw("Out of the list.");
 	}
@@ -58,34 +47,26 @@ monom& Polinom::operator[](int pos)
 
 void Polinom::Simplify()
 {
-	if (length == 1)
+	if (GetLength() == 1)
 	{
 		return;
 	}
 	Node<monom>* current = polinom->GetHead()->GetNext();
 	Node<monom>* previous = polinom->GetHead();
-	Node<monom>* temp = new Node < monom >(0);//промежуточный 
 
 	while (current != NULL)
 	{
-		if (current->GetVar().GetDegree() == previous->GetVar().GetDegree())
+		if (current->GetVar() == previous->GetVar())
 		{
-			temp->SetVar(previous->GetVar() + current->GetVar()); 
-			previous->SetVar(temp->GetVar());
-			if (current->GetNext() == NULL) {
-				previous->SetNext(NULL);
-				polinom->SetLength(polinom->GetLength() - 1);
-				length = polinom->GetLength();
-				return;
-			}
-			temp = current;
-			current = current->GetNext();
-			previous->SetNext(current);
-			delete(temp);
-			polinom->SetLength(polinom->GetLength() - 1);
-			length = polinom->GetLength();
+			previous->SetVar(previous->GetVar()+current->GetVar());
+			polinom->DeleteElement(current);
+			current = previous->GetNext();
 
 			continue;
+		}
+		if (current==NULL)
+		{
+			break;
 		}
 		previous = current;
 		current = current->GetNext();
@@ -96,6 +77,14 @@ Polinom operator + (const Polinom& left, const Polinom& right)
 {
 	Polinom res;
 	Node<monom>* current = left.polinom->GetHead();
+	if (left.GetLength() == 0)
+	{
+		return res = right;
+	}
+	if (right.GetLength()==0)
+	{
+		return res = left;
+	}
 	while (current != NULL)
 	{
 		res.AddElement(current->GetVar());
@@ -116,19 +105,44 @@ Polinom operator-(const Polinom& left, const Polinom& right)
 {
 	Polinom res;
 	Node<monom>* current = left.polinom->GetHead();
-	while (current != NULL) {
-		
-		res.AddElement(current->GetVar());
-		current = current->GetNext();
+	if (right.GetLength()==0)
+	{
+		return res = left;
+	}
+	if (left.GetLength() == 0)
+	{
+		return res = right*(monom(-1,0));
 	}
 
-	current = right.polinom->GetHead();
-	while (current != NULL) {
-		monom temp(-current->GetVar().GetCoefficient(), current->GetVar().GetDegree());
-		res.AddElement(temp);
-		current = current->GetNext();
-	}
+	res = left + right*monom(-1,0);
 	res.Simplify();
 
+	return res;
+}
+
+Polinom operator*(const Polinom& left, const monom& right)
+{
+	Polinom res;
+	Node<monom>* current = left.polinom->GetHead();
+	while (current != NULL)
+	{
+		res.AddElement(current->GetVar()*right);
+		current = current->GetNext();
+	}
+	return res;
+}
+
+Polinom operator*(const Polinom& left, const Polinom& right)
+{
+	Polinom res;
+	Polinom temp;
+	Node<monom>* current = left.polinom->GetHead();
+	Node<monom>* current_right = right.polinom->GetHead();
+	while (current != NULL) {
+		temp = right*current->GetVar();
+		res = res + temp;
+		current = current->GetNext();
+	}
+	//res.Simplify();
 	return res;
 }
