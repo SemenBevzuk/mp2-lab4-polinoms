@@ -91,7 +91,6 @@ Polinom operator + (const Polinom& left, const Polinom& right)
 	{
 		return res = left;
 	}
-
 	while (current_left != NULL && current_right !=NULL)
 	{
 		if (current_left->GetVar()>current_right->GetVar())
