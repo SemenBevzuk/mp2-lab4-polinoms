@@ -24,7 +24,7 @@ public:
 	}
 
 	Node() {
-		SetVar(Type());  //как задать нулевой полином? 
+		SetVar(Type());  
 		SetNext(NULL);
 	}
 
@@ -38,7 +38,7 @@ public:
 	}
 };
 
-template <class Type>  //с фиктивно головой
+template <class Type>  //с фиктивной головой
 class List
 {
 private:
@@ -134,7 +134,7 @@ public:
 			AddToHead(x);
 			return;
 		}
-		if (x > current->GetVar())//|| x==current->GetVar())
+		if (x > current->GetVar())
 		{
 			AddToHead(x);
 			return;
@@ -194,7 +194,7 @@ public:
 			previous = current;
 			current = current->GetNext();
 		}
-		//нет элемента
+		//нет элемента в списке
 	};
 };
 

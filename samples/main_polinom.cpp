@@ -31,20 +31,22 @@ void main()
 		cin >> size_polinom;
 		for (int i = 0; i < size_polinom; i++) {
 			cout << "Element " << i << ":  " << endl;;
-			cout << "Coefficient = ";
+			cout << "	Coefficient = ";
 			cin >> input;
 			input_monom.SetCoefficient(input);
-			cout << "Degree = ";
+			cout << "	Degree = ";
 			cin >> input;
 			input_monom.SetDegree(input);
 			polinom_2.AddElement(input_monom);
 		}
 
 		polinom_res = polinom_1 + polinom_2;
+		cout << endl;
 		cout << "The sum: "<<endl;
 		for (int i = 0; i < polinom_res.GetLength(); i++) {
 			cout << "Element " << i << " = " << polinom_res[i].GetCoefficient() << "|" << polinom_res[i].GetDegree()<<endl;
 		}
+
 		cout << endl;
 		polinom_res = polinom_1 * polinom_2;
 		cout << "The multiply: " << endl;
@@ -52,7 +54,8 @@ void main()
 			cout << "Element " << i << " = " << polinom_res[i].GetCoefficient() << "|" << polinom_res[i].GetDegree() << endl;
 		}
 
-		cout << "Continue the work? (1-yes|0-no): ";
+		cout << endl;
+		cout << "Continue work? (1-yes|0-no): ";
 		cin >> answer;
 		if (answer == 0)
 		{

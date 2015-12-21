@@ -140,9 +140,21 @@ Polinom operator*(const Polinom& left, const Polinom& right)
 	Node<monom>* current_right = right.polinom->GetHead();
 	while (current != NULL) {
 		temp = right*current->GetVar();
-		res = res + temp;
+		res += temp;
 		current = current->GetNext();
 	}
-	//res.Simplify();
 	return res;
+}
+
+Polinom& operator+=(Polinom& left, const Polinom& right)
+{
+	Node<monom>* current = right.polinom->GetHead();
+	current = right.polinom->GetHead();
+	while (current != NULL) {
+		left.AddElement(current->GetVar());
+		current = current->GetNext();
+	}
+	left.Simplify();
+
+	return left;
 }
