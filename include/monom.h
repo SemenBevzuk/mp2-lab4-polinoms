@@ -18,6 +18,7 @@ public:
 	friend bool operator !=(const monom& left, const monom& right);
 	friend bool operator <(const monom& left, const monom& right);
 	friend bool operator >(const monom& left, const monom& right);
+
 	monom& operator = (const monom& right);
 
 	friend monom operator + (const monom& left,const monom& right);

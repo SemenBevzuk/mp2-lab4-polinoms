@@ -68,6 +68,7 @@ public:
 	{
 		if (i>0) length = i;
 	}
+
 	void AddToHead(Type x) {
 		Node<Type>* temp;
 		if (length == 0)
@@ -91,7 +92,7 @@ public:
 			tail->SetNext(temp);
 		}
 		tail = temp;
-		if (head == NULL)
+		if (head == fhead)
 		{
 			head = temp;
 		}

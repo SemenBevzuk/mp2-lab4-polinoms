@@ -15,11 +15,15 @@ public:
 	Polinom(const Polinom &x);
 
 	void AddElement(monom x);
+	void AddElementToTail(monom x);
 	int GetLength() const;
 	
 	void Simplify();
 
 	monom& operator[](int pos);
+
+	//Polinom& operator=(const Polinom& right);// нет надобности 
+
 	friend Polinom operator + (const Polinom& left, const Polinom& right);
 	friend Polinom operator - (const Polinom& left, const Polinom& right);
 	friend Polinom operator * (const Polinom& left, const monom& right);
