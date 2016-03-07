@@ -1,6 +1,5 @@
 #pragma once
 #include <stdlib.h>
-#include "list.h"
 #include <monom.h>
 
 template <class Type>
@@ -14,6 +13,8 @@ public:
 	}
 	void SetNext(Node<Type> *n) {
 		next = n;
+
+
 	}
 	Node<Type>* GetNext()
 	{
@@ -128,15 +129,16 @@ public:
 
 	void AddElementOrdered(Type x) {
 		Node<Type>* current = head;
-		Node<Type>* previous = head;
+		Node<Type>* previous = fhead;
 		Node<Type>* temp = new Node<Type>(x);
 
-		if (current == NULL) {
+
+		if (current == fhead) {
 			AddToHead(x);
 			return;
 		}
-		if (x > current->GetVar())
-		{
+
+		if (x > current->GetVar()) {
 			AddToHead(x);
 			return;
 		}
@@ -144,6 +146,7 @@ public:
 			AddToTail(x);
 			return;
 		}
+		
 		while (x < current->GetVar())
 		{
 			previous = current;
@@ -161,6 +164,7 @@ public:
 
 		Node<Type> *temp = head;
 		head = temp->GetNext();
+		fhead->SetNext(head);
 		delete temp;
 		if (length == 1) {
 			head = tail = NULL;
@@ -183,6 +187,11 @@ public:
 	{
 		Node<Type> *previous = fhead;
 		Node<Type> *current = head;
+		if (node == head)
+		{
+			DeleteFirst();
+			return;
+		}
 		while (current != NULL)
 		{
 			if (current == node)

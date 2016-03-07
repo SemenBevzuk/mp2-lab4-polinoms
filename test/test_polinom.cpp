@@ -85,6 +85,19 @@ TEST(Polinom, can_simplify_3) {
 	EXPECT_EQ(10, a[2].GetCoefficient());
 }
 
+TEST(Polinom, can_simplify_whith_null) {
+	Polinom a;
+	a.AddElement(monom(10, 100));
+
+	a.AddElement(monom(0, 200));
+
+	//10|300
+
+	a.Simplify();
+	EXPECT_EQ(1, a.GetLength());
+	EXPECT_EQ(10, a[0].GetCoefficient());
+}
+
 TEST(Polinom, can_add) {
 	Polinom a;
 	a.AddElement(monom(1, 100));
@@ -116,6 +129,32 @@ TEST(Polinom, can_add_2) {
 	EXPECT_EQ(4, c[0].GetCoefficient());
 }
 
+TEST(Polinom, can_add_null) {
+	Polinom a;
+	a.AddElement(monom(2, 100));
+	Polinom b;
+	b.AddElement(monom(0, 100));
+	Polinom c;
+
+	c = a + b;
+
+	EXPECT_EQ(1, c.GetLength());
+	EXPECT_EQ(2, c[0].GetCoefficient());
+}
+
+TEST(Polinom, can_add_null_2) {
+	Polinom a;
+	a.AddElement(monom(2, 100));
+	Polinom b;
+	b.AddElement(monom(0, 110));
+	Polinom c;
+
+	c = a + b;
+
+	EXPECT_EQ(1, c.GetLength());
+	EXPECT_EQ(2, c[0].GetCoefficient());
+}
+
 TEST(Polinom, can_minus) {
 	Polinom a;
 	a.AddElement(monom(2, 100));
@@ -130,6 +169,36 @@ TEST(Polinom, can_minus) {
 	EXPECT_EQ(2, c.GetLength());
 	EXPECT_EQ(-2, c[0].GetCoefficient());
 	EXPECT_EQ(1, c[1].GetCoefficient());
+}
+
+TEST(Polinom, can_minus_null) {
+	Polinom a;
+	a.AddElement(monom(2, 100));
+	a.AddElement(monom(3, 200));
+	Polinom b;
+	b.AddElement(monom(0, 100));
+	Polinom c;
+
+	c = a - b;
+
+	EXPECT_EQ(2, c.GetLength());
+	EXPECT_EQ(3, c[0].GetCoefficient());
+	EXPECT_EQ(2, c[1].GetCoefficient());
+}
+
+TEST(Polinom, can_minus_null_2) {
+	Polinom a;
+	a.AddElement(monom(2, 100));
+	a.AddElement(monom(3, 200));
+	Polinom b;
+	b.AddElement(monom(0, 110));
+	Polinom c;
+
+	c = a - b;
+
+	EXPECT_EQ(2, c.GetLength());
+	EXPECT_EQ(3, c[0].GetCoefficient());
+	EXPECT_EQ(2, c[1].GetCoefficient());
 }
 
 TEST(Polinom, can_minus_whith_empty) {

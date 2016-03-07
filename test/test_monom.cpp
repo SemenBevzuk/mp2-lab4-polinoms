@@ -58,3 +58,10 @@ TEST(Monom, can_not_multiply_whith_large_degrees) {
 	ASSERT_ANY_THROW(c=a*b);
 }
 
+TEST(Monom, can_not_multiply_whith_large_degrees_2) {
+	monom a(3, 199);
+	monom b(2, 199);
+	monom c;
+	ASSERT_ANY_THROW(c = a*b);
+}
+

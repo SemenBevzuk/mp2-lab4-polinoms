@@ -22,7 +22,10 @@ Polinom::Polinom(const Polinom& x)
 
 void Polinom::AddElement(monom x)
 {
-	polinom->AddElementOrdered(x);
+	if (x.GetCoefficient()!=0)
+	{
+		polinom->AddElementOrdered(x);
+	}
 }
 
 void Polinom::AddElementToTail(monom x)
@@ -50,6 +53,11 @@ monom& Polinom::operator[](int pos)
 	
 }
 
+Polinom::~Polinom()
+{
+	//delete polinom;
+}
+
 void Polinom::Simplify()
 {
 	if (GetLength() == 1)
@@ -59,6 +67,8 @@ void Polinom::Simplify()
 	Node<monom>* current = polinom->GetHead()->GetNext();
 	Node<monom>* previous = polinom->GetHead();
 
+	//не обрабатывается предшествующий, пропуск элемента
+	//обработка нулевого полинома 
 	while (current != NULL)
 	{
 		if (current->GetVar() == previous->GetVar())
@@ -83,6 +93,7 @@ Polinom operator + (const Polinom& left, const Polinom& right)
 	Polinom res;
 	Node<monom>* current_left = left.polinom->GetHead();
 	Node<monom>* current_right = right.polinom->GetHead();
+
 	if (left.GetLength() == 0)
 	{
 		return res = right;
