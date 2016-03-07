@@ -129,6 +129,15 @@ TEST(Polinom, can_add_2) {
 	EXPECT_EQ(4, c[0].GetCoefficient());
 }
 
+TEST(Polinom, can_delete) {
+	Polinom a;
+	a.AddElement(monom(2, 100));
+	Polinom b;
+	b.AddElement(monom(0, 100));
+	b = a;
+	EXPECT_EQ(2, b[0].GetCoefficient());
+}
+
 TEST(Polinom, can_add_null) {
 	Polinom a;
 	a.AddElement(monom(2, 100));
@@ -266,4 +275,28 @@ TEST(Polinom, can_add_polinoms_whithout_fhead) {
 	a = a + b;
 
 	EXPECT_EQ(2, a.GetLength());
+}
+
+TEST(Polinom, can_add_double) {
+	Polinom a;
+	a.AddElement(monom(0.5, 100));
+	Polinom b;
+	b.AddElement(monom(0.5, 100));
+	
+
+	a = a + b;
+
+	EXPECT_EQ(1, a.GetLength());
+	EXPECT_EQ(1, a[0].GetCoefficient());
+}
+
+TEST(Polinom, can_multiply_polinom_double) {
+	Polinom a;
+	a.AddElement(monom(0.5, 100));
+
+	Polinom c = a * a;
+
+	EXPECT_EQ(1, c.GetLength());
+	EXPECT_EQ(0.25, c[0].GetCoefficient());
+	EXPECT_EQ(200, c[0].GetDegree());
 }

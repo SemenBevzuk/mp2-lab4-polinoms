@@ -13,7 +13,7 @@ void main()
 		Polinom polinom_1,polinom_2;
 		Polinom polinom_res;
 		monom input_monom;
-		int input;
+		double input;
 		cout << "Enter size of the first polinom: ";
 		cin >> size_polinom;
 		for (int i = 0; i < size_polinom;i++)

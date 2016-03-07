@@ -23,9 +23,11 @@ public:
 	monom& operator[](int pos);
 	~Polinom();
 
-	friend Polinom operator + (const Polinom& left, const Polinom& right);
-	friend Polinom operator - (const Polinom& left, const Polinom& right);
-	friend Polinom operator * (const Polinom& left, const monom& right);
-	friend Polinom operator * (const Polinom& left, const Polinom& right);
+	friend Polinom& operator + (const Polinom& left, const Polinom& right);
+	friend Polinom& operator - (const Polinom& left, const Polinom& right);
+	friend Polinom& operator * (const Polinom& left, const monom& right);
+	friend Polinom& operator * (const Polinom& left, const Polinom& right);
 	friend Polinom& operator += (Polinom& left, const Polinom& right);
+
+	Polinom& operator = (const Polinom &right);
 };

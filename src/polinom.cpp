@@ -55,7 +55,7 @@ monom& Polinom::operator[](int pos)
 
 Polinom::~Polinom()
 {
-	//delete polinom;
+	delete polinom;
 }
 
 void Polinom::Simplify()
@@ -88,92 +88,112 @@ void Polinom::Simplify()
 	}
 }
 
-Polinom operator + (const Polinom& left, const Polinom& right)
+Polinom& Polinom::operator = (const Polinom &right) {
+	if (this == &right) {
+		return *this;
+	}
+	delete polinom;
+
+	polinom = new List < monom >;
+
+	Node<monom> *current = right.polinom->GetHead();
+
+	while (current != NULL) {
+		polinom->AddElementOrdered(current->GetVar());
+		current = current->GetNext();
+	}
+	return *this;
+}
+
+Polinom& operator + (const Polinom& left, const Polinom& right)
 {
-	Polinom res;
+	Polinom *res = new Polinom;
+
 	Node<monom>* current_left = left.polinom->GetHead();
 	Node<monom>* current_right = right.polinom->GetHead();
 
 	if (left.GetLength() == 0)
 	{
-		return res = right;
+		res->Simplify();
+		return *res = right;
 	}
 	if (right.GetLength()==0)
 	{
-		return res = left;
+		res->Simplify();
+		return *res = left;
 	}
 	while (current_left != NULL && current_right !=NULL)
 	{
 		if (current_left->GetVar()>current_right->GetVar())
 		{
-			res.AddElementToTail(current_left->GetVar());
+			res->AddElementToTail(current_left->GetVar());
 			current_left = current_left->GetNext();
 		}
 		else{
-			res.AddElementToTail(current_right->GetVar());
+			res->AddElementToTail(current_right->GetVar());
 			current_right = current_right->GetNext();
 		}
 	}
 	if (current_left != NULL)
 	{
 		while (current_left != NULL) {
-			res.AddElementToTail(current_left->GetVar());
+			res->AddElementToTail(current_left->GetVar());
 			current_left = current_left->GetNext();
 		}
 	}
 	else{
 		while (current_right != NULL) {
-			res.AddElementToTail(current_right->GetVar());
+			res->AddElementToTail(current_right->GetVar());
 			current_right = current_right->GetNext();
 		}
 	}
-	res.Simplify();
-	return res;
+	res->Simplify();
+	return *res;
 }
 
-Polinom operator-(const Polinom& left, const Polinom& right)
+Polinom& operator-(const Polinom& left, const Polinom& right)
 {
-	Polinom res;
+	Polinom *res = new Polinom;
 	Node<monom>* current = left.polinom->GetHead();
 	if (right.GetLength()==0)
 	{
-		return res = left;
+		return *res = left;
 	}
 	if (left.GetLength() == 0)
 	{
-		return res = right*(monom(-1,0));
+		return *res = right*(monom(-1,0));
 	}
 
-	res = left + right*monom(-1,0);
-	res.Simplify();
+	*res = left + right*monom(-1,0);
+	res->Simplify();
 
-	return res;
+	return *res;
 }
 
-Polinom operator*(const Polinom& left, const monom& right)
+Polinom& operator*(const Polinom& left, const monom& right)
 {
-	Polinom res;
+	Polinom *res = new Polinom;
 	Node<monom>* current = left.polinom->GetHead();
 	while (current != NULL)
 	{
-		res.AddElement(current->GetVar()*right);
+		res->AddElement(current->GetVar()*right);
 		current = current->GetNext();
 	}
-	return res;
+	return *res;
 }
 
-Polinom operator*(const Polinom& left, const Polinom& right)
+Polinom& operator*(const Polinom& left, const Polinom& right)
 {
-	Polinom res;
+	Polinom *res = new Polinom;
 	Polinom temp;
 	Node<monom>* current = left.polinom->GetHead();
 	Node<monom>* current_right = right.polinom->GetHead();
 	while (current != NULL) {
 		temp = right*current->GetVar();
-		res += temp;
+		*res += temp;
 		current = current->GetNext();
 	}
-	return res;
+	return *res;
 }
 
 Polinom& operator+=(Polinom& left, const Polinom& right)

@@ -50,7 +50,7 @@ bool operator==(const monom& left,const monom& right)//сравненеи степеней!
 	}
 	if (left.GetCoefficient() != right.GetCoefficient())
 	{
-		//return false;
+		
 	}
 	return true;
 }
