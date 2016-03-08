@@ -24,5 +24,4 @@ public:
 	friend monom operator + (const monom& left,const monom& right);
 	friend monom operator - (const monom& left,const monom& right);
 	friend monom operator * (const monom& left, const monom& right);
-
 };

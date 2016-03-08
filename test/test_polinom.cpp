@@ -239,6 +239,24 @@ TEST(Polinom, can_multiply_polinom_monom) {
 	EXPECT_EQ(300, c[0].GetDegree());
 	EXPECT_EQ(200, c[1].GetDegree());
 }
+
+TEST(Polinom, can_multiply_polinom_const) {
+	Polinom a;
+	a.AddElement(monom(1, 100));
+	a.AddElement(monom(2, 200));
+	monom b(2, 000); //константа => моном вида (const, 000)
+
+	Polinom c;
+
+	c = a * b;
+
+	EXPECT_EQ(2, c.GetLength());
+	EXPECT_EQ(4, c[0].GetCoefficient());
+	EXPECT_EQ(2, c[1].GetCoefficient());
+	EXPECT_EQ(200, c[0].GetDegree());
+	EXPECT_EQ(100, c[1].GetDegree());
+}
+
 TEST(Polinom, can_not_multiply_polinom_whith_large_monom) {
 	Polinom a;
 	a.AddElement(monom(1, 100));

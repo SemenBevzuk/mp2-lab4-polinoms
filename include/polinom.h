@@ -13,6 +13,7 @@ private:
 public:
 	Polinom();
 	Polinom(const Polinom &x);
+	~Polinom();
 
 	void AddElement(monom x);
 	void AddElementToTail(monom x);
@@ -21,8 +22,6 @@ public:
 	void Simplify();
 
 	monom& operator[](int pos);
-	~Polinom();
-
 	friend Polinom& operator + (const Polinom& left, const Polinom& right);
 	friend Polinom& operator - (const Polinom& left, const Polinom& right);
 	friend Polinom& operator * (const Polinom& left, const monom& right);

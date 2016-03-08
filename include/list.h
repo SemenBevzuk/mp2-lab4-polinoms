@@ -13,8 +13,6 @@ public:
 	}
 	void SetNext(Node<Type> *n) {
 		next = n;
-
-
 	}
 	Node<Type>* GetNext()
 	{
