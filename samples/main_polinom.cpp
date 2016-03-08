@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <iostream>
 
+//1237
+
 using namespace std;
 void main() {
 	bool end_work = false;
@@ -25,6 +27,7 @@ void main() {
 			input_monom.SetDegree(input);
 			polinom_1.AddElement(input_monom);
 		}
+		cout << endl;
 		cout << "Enter size of the second polinom: ";
 		cin >> size_polinom;
 		for (int i = 0; i < size_polinom; i++) {
@@ -45,6 +48,7 @@ void main() {
 		while (select_operation == false) {
 			correct_input = false;
 			while (correct_input != true) {
+				cout << endl;
 				cout << "Select operation (+,-,*): ";
 				cin >> answer_c;
 				cout << endl;
@@ -101,8 +105,8 @@ void main() {
 												cout << "Input error!" << endl;
 										}
 									}
+									cout << "The multiply(const): " << endl;
 									for (int i = 0; i < polinom_res.GetLength(); i++) {
-										cout << "The multiply(const): " << endl;
 										cout << "Element " << i << " = " << polinom_res[i].GetCoefficient() << "|" << polinom_res[i].GetDegree() << endl;
 									}
 									break;
@@ -117,7 +121,7 @@ void main() {
 						cout << "Input error!" << endl;
 						}
 				}
-				cout << "Continue select operation? (1-yes|0-no): ";
+				cout << "Continue selecting operation? (1-yes|0-no): ";
 				cin >> answer;
 				if (answer == 1) {
 					select_operation = false;
